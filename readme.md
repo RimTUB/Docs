@@ -308,3 +308,144 @@ async def main(app: Client):
     ```
 
 
+    ***
+
+    ## utils
+
+    ### install_log
+
+    Устанавливает обработчики логирования и настройки для указанного логгера.
+
+    #### Parameters:
+    `logger` : _logging.Logger_\
+    Логгер, для которого нужно установить обработчики.\
+    `bot` : _bool_\
+    Флаг, указывающий, использовать ли уровень логирования для бота (BOT_LOGGING_LEVEL).
+    
+    #### Returns:
+    _logging.Logger_ : Настроенный логгер с добавленными обработчиками.
+
+    #### Example:
+    ```py
+    from utils import *
+
+    my_logger = logging.getLogger('example')
+    my_logger = install_log(my_logger)
+    my_logger.info("hello?")
+    ```
+    
+    *** 
+
+    ### format_callback
+
+    Форматирует строку обратного вызова, используя ID пользователя или клиент и ID функции или объект функции. Нужно для правильного составления кнопок.\
+    Подробнее в разделе про кнопки
+
+    #### Parameters:
+    `user`: _int | ModifyPyrogramClient | Client_ \
+    ID клиента или объект клиента, который инициировал запрос.\
+    `func`: _int | Awaitable_\
+    ID функции или вызываемая асинхронная функция.\
+    
+    #### Returns:
+    _str_ : Строка в формате `{user_id}:{func_id}` для подстановки
+    
+    #### Example:
+    ```py
+    from utils import *
+    from telebot.types import InlineKeyboardButton as IB
+
+    async def click(...): ...
+
+    IB("нажми меня", callback_data=format_callback(app, click))
+    ```
+
+    ## HTML
+    ### escape
+    Экранирует специальные HTML символы в строке.
+
+    #### Parameters:
+    `text` : _str_\
+    Текст для экранирования.
+
+    #### Returns:
+    _str_ : Экранированный текст.
+
+    ***
+
+    ### format_tag
+    Генерирует HTML тег.
+
+    #### Parameters
+    `tag_name` : _str_\
+    Имя тега. Например "a" или "div".
+
+    `content` : _str_\
+    Содержимое тега, defaults to "".
+
+    `escape_content` : _bool_\
+    Нужно ли экранировать контент, defaults to True.
+
+    `close_tag` : _bool_\
+    Нужен ли закрывающий тег, defaults to True.
+
+    _kwargs_ : Атрибуты тега. Названия атрибутов можно указывать с "_".
+
+    #### Returns
+    _str_ : Сгенерированный HTML тег.
+
+    *** 
+
+    ### code, b, i, u, s, spoiler
+    Создают соответствующие HTML теги\
+    - code: `код`
+    - b: **жирный текст**
+    - i: _курсив_
+    - u: <u>подчеркнутый</u>
+    - s: <s>зачеркнутый</s>
+    - spoiler: спойлер. Нужно кликнуть чтобы прочитать
+
+    #### Parameters
+    `text` : _str_\
+    Текст для размещения в теге.
+
+    `escape_html` : _bool_\
+    Нужно ли экранировать HTML, по умолчанию True.
+
+    #### Returns:
+    _str_ : Генерирует HTML тег.
+
+    ##### Example:
+    ```py
+    from utils import *
+
+    await msg.edit(b('Hello,') +' '+ i("world!"))
+    ```
+
+    ***
+
+    ### a
+    Создает HTML тег для ссылки.
+
+    #### Parameters
+    `text` : _str_\
+    Текст ссылки.
+
+    `url` : _str_\
+    URL для ссылки.
+
+    `escape_html` : _bool_\
+    Нужно ли экранировать HTML, defaults to True.
+
+    #### Returns
+    _str_ : Сгенерированный HTML тег для ссылки.
+
+    #### Example:
+    
+
+    ***
+
+    ### blockquote, bq
+
+
+
